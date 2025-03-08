@@ -54,7 +54,7 @@ const AllFarmersProducts = ({onSelectProduct}) => {
           {products.map((product) => (
             <div className="product-card" key={product._id}>
               <img
-                src={`${API_URL}/uploads/${product.image}`}
+                src={product.image ? `${API_URL}/uploads/${product.image}` : product.imageUrl}
                 alt={product.productName}
                 className="product-image"
               />

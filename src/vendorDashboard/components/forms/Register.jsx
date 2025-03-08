@@ -15,7 +15,7 @@ const Register = ({ onSuccess }) => {
   const [location,setLocation]=useState("");
   const [error, setError] = useState("");
   
-  
+   
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,6 +32,11 @@ const Register = ({ onSuccess }) => {
       const data = await response.json();
       if (response.ok) {
         console.log(data);
+
+         // Store email and password in localStorage
+      localStorage.setItem("registeredEmail", email);
+      localStorage.setItem("registeredPassword", password);
+
         setUsername("");
         setEmail("");
         setPassword("");
@@ -46,7 +51,7 @@ const Register = ({ onSuccess }) => {
         onSuccess(); //New Change
       } else {
         setError(data.error);
-        alert("Registration Failed, Contact Admin")
+        alert("Registration Failed,This Data Already Exist Contact Admin")
       }
     } catch (error) {
       console.error("Registration failed in register.jsx", error);

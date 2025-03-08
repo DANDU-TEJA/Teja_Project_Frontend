@@ -18,7 +18,7 @@ const Login = ({onSuccess}) => {
       }
     }
     return true;
-  };
+  }; 
 
   const loginHandler = async(e)=>{
       e.preventDefault();

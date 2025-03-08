@@ -28,6 +28,7 @@ const AllProducts = () => {
                             method: 'DELETE'
                         })
                     if(response.ok){
+                        
                         setProducts(products.filter(product =>product._id !== productId));
                         confirm("are you sure, you want to delete?")
                         alert("Product deleted Successfully")
@@ -49,25 +50,22 @@ const AllProducts = () => {
                     <tr>
                         <th>Product Name</th>
                         <th>Price</th>
-                        <th>Image</th>
+                        <th>Quantity</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
+                    
                     {products.map((item)=>{
+                        
                             return (
                                 <>
                                     <tr key={item._id}>
                                         <td>{item.productName}</td>
                                         <td>₹{item.price}</td>
-                                    <td>
-                                        {item.image && (
-                                            <img src={`${API_URL}/uploads/${item.image}`} 
-                                            alt={item.productName}
-                                            style={{ width: '50px', height:'50px'  }}
-                                            />
-                                        )}
-                                    </td>
+                                        <td>
+                                            {item.quantity}
+                                        </td>
                                     <td>
                                         <button onClick={()=>deleteProductById(item._id)}
                                         className='deleteBtn'

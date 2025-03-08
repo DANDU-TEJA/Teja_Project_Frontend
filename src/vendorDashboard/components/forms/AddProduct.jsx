@@ -10,6 +10,7 @@ const AddProduct = ({onSuccess}) => {
   const [bestSeller, setBestSeller] = useState(false);
   const [image, setImage] = useState(null);
   const [description, setDescription] = useState("");
+  const [imageUrl,setImageUrl]=useState("");
 
   const handleBestSeller = (event) => {
     setBestSeller(event.target.value === "true");
@@ -17,7 +18,9 @@ const AddProduct = ({onSuccess}) => {
 
   const handleImageUpload = (event) => {
     const selectedImage = event.target.files[0];
-    setImage(selectedImage);
+    setImage(selectedImage); //upload
+
+
   };
 
   const handleAddProduct = async (e) => {
@@ -42,7 +45,11 @@ const AddProduct = ({onSuccess}) => {
       formData.append("color",color);
       formData.append("description", description);
       formData.append("bestSeller", bestSeller);
-      formData.append("image", image);
+      
+        formData.append("image", image); //upload
+      
+        formData.append("imageUrl",imageUrl);//url
+  
       
       console.log("This Is Firm Id",firmId);
       console.log("This Is Vendor Id",vendorId);//New Change
@@ -66,6 +73,7 @@ const AddProduct = ({onSuccess}) => {
       setBestSeller(false);
       setImage(null);
       setDescription("");
+      setImageUrl("");
 
     } catch (error) {
       alert("Failed to add Product in AddProduct");
@@ -106,8 +114,11 @@ const AddProduct = ({onSuccess}) => {
         <label>Description</label>
         <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
 
-        <label>Product Image</label>
+        <label>Product Image (Upload)</label>
         <input type="file" onChange={handleImageUpload} />
+
+        <label>OR Image URL</label>
+        <input type="text" value={imageUrl} onChange={(e)=> setImageUrl(e.target.value)} placeholder="Image URL"/>
 
         <div className="btnSubmit">
           <button type="submit">Submit</button>
