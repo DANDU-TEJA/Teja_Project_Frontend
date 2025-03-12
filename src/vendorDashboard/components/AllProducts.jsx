@@ -3,19 +3,31 @@ import { API_URL } from '../data/apiPath';
 
 const AllProducts = () => {
     const [products, setProducts]= useState([]);
+    
+    const loggedInVendorId=localStorage.getItem('loggedInVendorId');//Here The login VendorId is retrived
+
 
     const productsHandler = async()=>{
-            const firmId = localStorage.getItem('firmId');
+        if(!loggedInVendorId){
+            console.log("No Vendor Id Found. Please login");
+            alert("no vendorId is Found Please Login ");
+            return;
+        }
+           // const productId = localStorage.getItem('vendorId');
         try {
-                const response = await fetch(`${API_URL}/product/${firmId}/products`);
+                const response = await fetch(`${API_URL}/product/get-product/${loggedInVendorId}`);//getting This Vendor Id from Login.jsx or Its Not Coming From Login
+                if(!response.ok){
+                    throw new Error("Failed to Fetch Products");
+                }
+                
                 const newProductsData = await response.json();
                 setProducts(newProductsData.products);
-                console.log(newProductsData);
+                console.log("Fetched products",newProductsData);
         } catch (error) {
             console.error("failed to fetch products", error);
-            alert('failed to fetch products')
+            alert('failed to fetch products');
         }
-    }
+    };
 
     useEffect(()=>{
         productsHandler()

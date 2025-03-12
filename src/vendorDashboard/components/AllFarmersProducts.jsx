@@ -15,7 +15,7 @@ const AllFarmersProducts = ({onSelectProduct}) => {
     try {
       const response = await fetch(`${API_URL}/product/all-products`);
       const data = await response.json();
-      console.log("API Response for all Products",data);
+      //console.log("API Response for all Products",data);
       setProducts(data);
       setProducts(data);
       setLoading(false);

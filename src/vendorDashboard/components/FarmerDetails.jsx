@@ -19,7 +19,7 @@ const FarmerDetails = ({ product, onBack }) => {
       setLoading(false);
     }
   }, [product]);
-  
+
   
   const fetchFarmerDetails = async (vendorId) => {
     try {
@@ -40,6 +40,7 @@ const FarmerDetails = ({ product, onBack }) => {
   };
 
   if (!product) return <p>No product selected.</p>;
+
 
   return (
     <div className="farmer-details">
@@ -71,10 +72,13 @@ const FarmerDetails = ({ product, onBack }) => {
           <p>Survey No./Sub-Division No: {farmer.survey}</p>
           <p>
             Location:{" "}
+            {farmer.location ? (
             <a href={farmer.location} target="_blank" rel="noopener noreferrer">
             Click Here
-           </a>
-          </p>
+            </a>
+            ) : (<span style={{ color: "red" }}>Invalid Location</span>)
+            }
+            </p>
           </div>
           <div className="noteSection">
           <p>Note : You can verify if the seller is a certified farmer</p>

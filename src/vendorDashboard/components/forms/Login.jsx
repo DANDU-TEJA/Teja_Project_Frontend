@@ -7,23 +7,10 @@ const Login = ({onSuccess}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
-  const validateCredentials = () => {
-    const storedEmail = localStorage.getItem("registeredEmail");
-    const storedPassword = localStorage.getItem("registeredPassword");
-
-    if (storedEmail && storedPassword) {
-      if (email !== storedEmail || password !== storedPassword) {
-        alert("Incorrect email or password. Please try again.");
-        return false;
-      }
-    }
-    return true;
-  }; 
-
   const loginHandler = async(e)=>{
       e.preventDefault();
 
-     if (!validateCredentials()) return;
+    //  if (!validateCredentials()) return;
       try {
           const response = await fetch(`${API_URL}/vendor/login`, {
             method: 'POST',
@@ -31,37 +18,40 @@ const Login = ({onSuccess}) => {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({email, password})
-          })
-          const data = await response.json();
-          if(response.ok){
-            alert('Login success');
-            setEmail("");
-            setPassword("");
-            localStorage.setItem('loginToken', data.token);
-            //storing The Vendor Id In localStorage
-            localStorage.setItem('vendorId', data.vendorId);//new Change
-            
-            console.log("The Vendor Id Sending from Login.jsx",data.vendorId);//new Change
-            onSuccess();
+          });
 
+          const data = await response.json();
+          console.log("Lets Check What is This Data",data);
+
+          if(!response.ok){
+            alert('Incorrect Email or Password in login.jsx');
+            return;
           }
-          const vendorId = data.vendorId
-          console.log("checking for VendorId:",vendorId)
-          const vendorResponse = await fetch(`${API_URL}/vendor/single-vendor/${vendorId}`)
-         // window.location.reload()
+          alert("Login Successful");
+          setEmail("");
+          setPassword("");
+
+          localStorage.setItem('loggedInVendorId',data.vendorId);
+          
+          console.log("checking for localstorage VendorId:",data.vendorId);
+          
+          const vendorResponse = await fetch(`${API_URL}/vendor/single-vendor/${data.vendorId}`)
           const vendorData = await vendorResponse.json();
+          console.log("Lets Check Vendor Data",vendorData);
+          
+          
           if(vendorResponse.ok){
-            const vendorFirmId = vendorData.vendorFirmId;
-            const vendorFirmName = vendorData.vendor.firm[0].firmName;
-            localStorage.setItem('firmId', vendorFirmId);
-            localStorage.setItem('firmName', vendorFirmName)
+           // localStorage.setItem("loggedInVendorId",data.vendorId);
+            localStorage.setItem('vendorName',vendorData.vendor.username);
+            console.log('vendor Name Stored:',vendorData.vendor.username);
           }
+          onSuccess();
       } catch (error) {
           alert("login fail due To error in LoginHandler");
           console.log(error);
       } 
 
-  }
+  };
 
   return (
     <div className="loginSection">

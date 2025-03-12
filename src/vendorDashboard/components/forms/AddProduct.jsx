@@ -27,13 +27,12 @@ const AddProduct = ({onSuccess}) => {
     e.preventDefault();
 
     try {
-      const loginToken = localStorage.getItem("loginToken");
-      const firmId = localStorage.getItem("firmId");
-      const vendorId=localStorage.getItem("vendorId");//New Change
 
-      console.log("This is firm Id",firmId);
-      console.log("This is vendor Id",vendorId);//New Cahnge
-      if (!loginToken || !firmId ||!vendorId) { //updated Condition
+      const loggedInVendorId=localStorage.getItem("loggedInVendorId");//New Change
+
+
+      console.log("This is vendor Id",loggedInVendorId);//New Cahnge
+      if (!loggedInVendorId) { //updated Condition
         console.error("User not authenticated");
         return;
       }
@@ -51,9 +50,9 @@ const AddProduct = ({onSuccess}) => {
         formData.append("imageUrl",imageUrl);//url
   
       
-      console.log("This Is Firm Id",firmId);
-      console.log("This Is Vendor Id",vendorId);//New Change
-      const response = await fetch(`${API_URL}/product/add-product/${firmId}/${vendorId}`, {
+
+      console.log("This Is Vendor Id",loggedInVendorId);//New Change
+      const response = await fetch(`${API_URL}/product/add-product/${loggedInVendorId}`, {
         method: "POST",
         body: formData,
       });
