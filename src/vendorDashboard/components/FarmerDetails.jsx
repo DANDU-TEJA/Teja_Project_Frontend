@@ -44,10 +44,13 @@ const FarmerDetails = ({ product, onBack }) => {
 
   return (
     <div className="farmer-details">
-      
-      <img src={product.image ? `${API_URL}/uploads/${product.image}` : product.imageUrl} 
-      alt={product.productName}
-       className="productImage" />    {/* Here I Want to Add The Image URL */}
+       <img
+        src={product.image && product.image.trim() !== "" ? `${API_URL}/uploads/${product.image}` : product.imageUrl}
+        onError={(e) => { e.target.src = product.imageUrl }} // Fallback if the uploaded image fails to load
+        alt={product.productName}
+        className="productImage"
+         />
+   {/* Here I Want to Add The Image URL */}
       
       <div className="FproductDetails">
       <p>Product Name: {product.productName}</p>

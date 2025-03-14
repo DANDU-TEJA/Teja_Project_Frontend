@@ -34,14 +34,13 @@ body {
 
 /* Title Section */
 .Title {
-
     flex-grow: 1;
     text-align: center;
     max-width: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 30px;
+    margin-left: 230px;
     margin-top: 20px;
     font-style: normal;
 }
@@ -842,5 +841,66 @@ h3 {
   
   
 /* Farmer Details Section Style Ended*/
+
+/*Search Bar Style start*/
+.Search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 10px;
+  }
+  
+  .search-bar {
+    width: 300px;
+    padding: 12px 15px;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    font-size: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    color: #333;
+  }
+  
+  /* Hover effect */
+  .search-bar:hover {
+    border-color: #16579d;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+  }
+  
+  /* Focus effect */
+  .search-bar:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 12px rgba(0, 86, 179, 0.5);
+  }
+  
+  /* Search button */
+  .sbtn {
+    padding: 12px 20px;
+    background: #1d426b;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+
+  }
+  
+  /* Button hover */
+  .sbtn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+  }
+  
+  /* Button active effect */
+  .sbtn:active {
+    background: #003d80;
+    transform: translateY(1px);
+  }
+  
+
+/*Search Bar Style End*/
+
+
 
   /* CSS for All The Farmer Products Is Completed*/
