@@ -72,7 +72,7 @@ const AllFarmersProducts = ({onSelectProduct}) => {
               onError={(e) => { e.target.src = product.imageUrl }} // Fallback if the uploaded image fails to load
               alt={product.productName}
               className="product-image"
-/>
+            />
 
               <div className="product-info">
                 <h3>{product.productName}</h3>

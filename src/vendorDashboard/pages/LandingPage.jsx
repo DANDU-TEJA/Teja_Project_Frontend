@@ -17,10 +17,19 @@ const LandingPage = () => {
 
   const [selectedProduct,setSelectedProduct]=useState(null);//new Change 3/6/25
   
+   useEffect(()=>{
+    const loggedInStatus=localStorage.getItem('isLoggedIn');
+    if(loggedInStatus=='true'){
+      setIsLoggedIn(true);
+    }
+   },[])
 
+   
   const handleLogout = () => {
     if (window.confirm('Are you sure you want to log out?')) {
-     
+     localStorage.removeItem('isLoggedIn');
+     localStorage.removeItem('loggedInVendorId');
+     localStorage.removeItem('vendorName');
       setIsLoggedIn(false);
       setCurrentView('home');
     }

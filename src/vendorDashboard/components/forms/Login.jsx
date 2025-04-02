@@ -10,7 +10,7 @@ const Login = ({onSuccess}) => {
   const loginHandler = async(e)=>{
       e.preventDefault();
 
-    //  if (!validateCredentials()) return;
+    
       try {
           const response = await fetch(`${API_URL}/vendor/login`, {
             method: 'POST',
@@ -24,13 +24,14 @@ const Login = ({onSuccess}) => {
           console.log("Lets Check What is This Data",data);
 
           if(!response.ok){
-            alert('Incorrect Email or Password in login.jsx');
+            alert('Incorrect Email or Password');
             return;
           }
           alert("Login Successful");
           setEmail("");
           setPassword("");
 
+          localStorage.setItem('isLoggedIn','true');//set login Flag
           localStorage.setItem('loggedInVendorId',data.vendorId);
           
           console.log("checking for localstorage VendorId:",data.vendorId);
@@ -66,6 +67,7 @@ const Login = ({onSuccess}) => {
     <div className="btnSubmit">
         <button type= 'submit'>Submit</button>
     </div>
+      <p>Dont't Have An Account Please Register</p>
         </form>}
     </div>
   )

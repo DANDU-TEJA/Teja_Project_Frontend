@@ -20,6 +20,50 @@ const Register = ({ onSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+       //Validations 
+      
+  // 1. Check if any field is empty
+  if (!username || !phone || !email || !password || !district || !mandal || !village || !survey || !location) {
+    alert("Please Fill All The Required fields!");
+    return;
+  }
+    // 2. Username Validation (Only letters and spaces)
+    const usernameRegex = /^[A-Za-z\s]+$/;
+    if (!usernameRegex.test(username)) {
+      alert("Username must only contain letters and spaces. No special characters allowed.");
+      return;
+    }
+     
+     // 3. Phone Number Validation (Exactly 10 digits)
+  const phoneRegex = /^[0-9]{10}$/;
+  if (!phoneRegex.test(phone)) {
+    alert("Phone number must be exactly 10 digits.");
+    return;
+  }
+
+        // 4. Email Validation (Proper email format)
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
+  const districtRegex = /^[A-Za-z\s]+$/;
+    if (!districtRegex.test(district)) {
+      alert("District name must only contain letters and spaces. No special characters allowed.");
+      return;
+    }
+    const mandalRegex = /^[A-Za-z\s]+$/;
+    if (!mandalRegex.test(mandal)) {
+      alert("Mandal name must only contain letters and spaces. No special characters allowed.");
+      return;
+    }
+    const villageRegex = /^[A-Za-z\s]+$/;
+    if (!villageRegex.test(village)) {
+      alert("Village name must only contain letters and spaces. No special characters allowed.");
+      return;
+    }
+    
     try {
       const response = await fetch(`${API_URL}/vendor/register`, {
         method: 'POST',
@@ -64,25 +108,31 @@ const Register = ({ onSuccess }) => {
 {<form className='authForm' onSubmit={handleSubmit} >
 
 <h3>Farmer Register</h3>
-<label>Username</label>
+<label>Username<span style={{ color: 'red' }}>*</span></label>
 <input type="text" name='username' value={username} onChange={(e) => setUsername(e.target.value)} placeholder='enter your name' /><br />
-<label>Phone No.</label>
+
+<label>Phone No.<span style={{ color: 'red' }}>*</span></label>
 <input type="text" name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} placeholder='enter phone number'/><br/>
 
-<label>Email</label>
+<label>Email<span style={{ color: 'red' }}>*</span></label>
 <input type="text" name='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='enter your email' /><br />
-<label>Password</label>
+
+<label>Password<span style={{color:'red'}}>*</span></label>
 <input type={"password"} value={password} onChange={(e) => setPassword(e.target.value)} name='password' placeholder='enter your password' /><br />
 
-<label>District</label>
+<label>District<span style={{ color: 'red' }}>*</span></label>
 <input type="text" name='district' value={district} onChange={(e) => setDistrict(e.target.value)} placeholder='enter your District Name' /><br />
-<label>Mandal</label>
+
+<label>Mandal<span style={{ color: 'red' }}>*</span></label>
 <input type="text" name='mandal' value={mandal} onChange={(e) => setMandal(e.target.value)} placeholder='enter your mandal name' /><br />
-<label>Village</label>
+
+<label>Village<span style={{ color: 'red' }}>*</span></label>
 <input type="text" name='village' value={village} onChange={(e) => setVillage(e.target.value)} placeholder='enter your Village name' /><br />
-<label>Survey No./Sub-Division No.</label>
+
+<label>Survey No./Sub-Division No.<span className='mandatoryField'>*</span></label>
 <input type="text" name='survey' value={survey} onChange={(e) => setSurvey(e.target.value)} placeholder='enter your Survey No./Sub-division No.' /><br />
-<label>Location</label>
+
+<label>Location<span style={{ color: 'red' }}>*</span></label>
 <input type='text' name='location' value={location} onChange={(e)=>setLocation(e.target.value)} placeholder='Your Location URL'/><br/>
 
 <div className="btnsubmit">
@@ -91,7 +141,8 @@ const Register = ({ onSuccess }) => {
 </form>}
   
     </div>
-  );
+  ); 
 };
 
 export default Register;
+

@@ -19,12 +19,40 @@ const AddProduct = ({onSuccess}) => {
   const handleImageUpload = (event) => {
     const selectedImage = event.target.files[0];
     setImage(selectedImage); //upload
-
-
   };
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
+
+    if (!productName) {
+      alert("Please Enter Your Product Name..");
+      return;
+    }
+    if(!price){
+      alert("Please Enter The Price..")
+      return;
+    }
+    
+    if(!quantity){
+      alert("Please Enter The Quantity in KGs..")
+      return;
+    }
+
+    if(!color){
+      alert("Please Enter The Color of Your Product..")
+      return;
+    }
+
+    if(!description){
+      alert("Please Provide Small Description About Your Product..")
+      return;
+    }
+
+    if(!image){
+      alert("Please Upload Your Product Image..")
+      return;
+    }
+
 
     try {
 
@@ -84,15 +112,15 @@ const AddProduct = ({onSuccess}) => {
       <form onSubmit={handleAddProduct}>
         <h3>Add Product</h3>
 
-        <label>Product Name</label>
+        <label>Product Name<span className='mandatoryField'>*</span></label>
         <input type="text" value={productName} onChange={(e) => setProductName(e.target.value)} />
 
-        <label>Price</label>
+        <label>Price<span className='mandatoryField'>*</span></label>
         <input type="text" value={price} onChange={(e) => setPrice(e.target.value)} />
         
-        <label>Quantity</label>
+        <label>Quantity<span className='mandatoryField'>*</span></label>
         <input type="text" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
-        <label>Color</label>
+        <label>Color<span className='mandatoryField'>*</span></label>
         <input type="text" value={color} onChange={(e) => setColor(e.target.value)} />
         
 
@@ -110,13 +138,13 @@ const AddProduct = ({onSuccess}) => {
           </div>
         </div>
 
-        <label>Description</label>
+        <label>Description<span className='mandatoryField'>*</span></label>
         <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
 
-        <label>Product Image (Upload)</label>
-        <input type="file" onChange={handleImageUpload} />
+        <label>Product Image (Upload)<span className='mandatoryField'>*</span></label>
+        <input type="file" accept="image/*" onChange={handleImageUpload} />
 
-        <label>OR Image URL</label>
+        <label>Image URL</label>
         <input type="text" value={imageUrl} onChange={(e)=> setImageUrl(e.target.value)} placeholder="Image URL"/>
 
         <div className="btnSubmit">

@@ -5,8 +5,8 @@ const NavBar = ({ onLogin, onRegister, isLoggedIn, onLogout }) => {
     <div className="navSection">
       <div className="companyLogo"></div>
       <div className="Title">
-        <h4>Krishak Harvest Hub</h4>
-        <p className='subTitle'>Farmer To Buyer Trading Platform</p>
+        <h4>Crop Connect</h4>
+        <p className='subTitle'>A Mern Stack Platform For Direct Agricultural Sales</p>
       </div>
       <div className="userAuth">
         {!isLoggedIn ? (
