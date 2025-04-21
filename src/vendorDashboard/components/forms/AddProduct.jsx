@@ -53,46 +53,44 @@ const AddProduct = ({onSuccess}) => {
       return;
     }
 
-
     try {
-
-      const loggedInVendorId=localStorage.getItem("loggedInVendorId");//New Change
-
-
-      console.log("This is vendor Id",loggedInVendorId);//New Cahnge
-      if (!loggedInVendorId) { //updated Condition
+      const loggedInVendorId = localStorage.getItem("loggedInVendorId"); // New Change
+    
+      console.log("This is vendor Id", loggedInVendorId); // New Change
+      if (!loggedInVendorId) {
         console.error("User not authenticated");
         return;
       }
-
+    
       const formData = new FormData();
       formData.append("productName", productName);
       formData.append("price", price);
-      formData.append("quantity",quantity);
-      formData.append("color",color);
+      formData.append("quantity", quantity);
+      formData.append("color", color);
       formData.append("description", description);
       formData.append("bestSeller", bestSeller);
-      
-        formData.append("image", image); //upload
-      
-        formData.append("imageUrl",imageUrl);//url
-  
-      
-
-      console.log("This Is Vendor Id",loggedInVendorId);//New Change
+      formData.append("image", image); // Upload
+      formData.append("imageUrl", imageUrl); // URL
+    
+      console.log("Sending API Request to:", `${API_URL}/product/add-product/${loggedInVendorId}`);
+      console.log("Form Data:", Object.fromEntries(formData.entries())); // Log the form data
+    
       const response = await fetch(`${API_URL}/product/add-product/${loggedInVendorId}`, {
         method: "POST",
         body: formData,
       });
-
-      const data = await response.json();
-      console.log(data);
-
+    
+      console.log("Response Status:", response.status);
+      const responseText = await response.text();
+      console.log("Response Body:", responseText);
+    
       if (response.ok) {
         alert("Product added successfully");
-        onSuccess()//New Change3/6/25
-        
+        onSuccess(); // New Change
+      } else {
+        alert("Failed to add product: " + responseText); // Log the actual error message
       }
+    
       setProductName("");
       setPrice("");
       setQuantity("");
@@ -101,10 +99,11 @@ const AddProduct = ({onSuccess}) => {
       setImage(null);
       setDescription("");
       setImageUrl("");
-
     } catch (error) {
-      alert("Failed to add Product in AddProduct");
+      console.error("Error adding product:", error);
+      alert("Failed to add Product in AddProduct: " + error.message);
     }
+    
   };
 
   return (
@@ -125,7 +124,7 @@ const AddProduct = ({onSuccess}) => {
         
 
         <div className="checkInp">
-          <label>Best Seller</label>
+          <label>Own Land</label>
           <div className="inputsContainer">
             <div className="checboxContainer">
               <label>Yes</label>

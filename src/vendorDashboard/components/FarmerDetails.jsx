@@ -94,6 +94,7 @@ const FarmerDetails = ({ product, onBack }) => {
       )}
         <button onClick={onBack} className="back-button">← Back</button>
     </div>
+    
   );
 };
 
